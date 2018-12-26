@@ -1,3 +1,4 @@
+options(warn=-1)
 library(ggplot2)
 library(Rnalytica)
 library(effsize)

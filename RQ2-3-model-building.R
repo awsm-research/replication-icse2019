@@ -1,7 +1,8 @@
+options(warn=-1)
 library(Rnalytica)
 library(randomForest)
 library(doParallel)
-registerDoParallel(cores=12)
+registerDoParallel(cores=6)
   
 o <- foreach(project=listDataset[listDataset$corpus == "jira",]$system, .combine=cbind) %dopar% {
 # for(project in listDataset[listDataset$corpus == "jira",]$system){
