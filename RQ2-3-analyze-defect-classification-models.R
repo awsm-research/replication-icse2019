@@ -1,5 +1,3 @@
-setwd("~/mcs18-defect-linkage/")
-
 library(ggplot2)
 library(Rnalytica)
 library(plyr)
@@ -13,7 +11,7 @@ projects <- listDataset[listDataset$corpus == "jira",]$system
 
 for(project in projects){
   print(project)
-  data <- data.frame(readRDS(file=paste0("results/",project,".Rds")))
+  data <- data.frame(readRDS(file=paste0("models/",project,".Rds")))
   
   col <- c("boot_id","glm.noisy","glm.clean","lm.noisy","lm.clean",
            "rfc.noisy","rfc.clean","rfr.noisy","rfr.clean","oracle.number","LOC")
@@ -65,11 +63,11 @@ for(project in projects){
 
 rq3.ranking <- data.frame(rq3.ranking)
 rq3.ranking[,3:4] <- lapply(rq3.ranking[,3:4],function(x) as.numeric(as.character(x)))
-saveRDS(rq3.ranking, file="Analysis/rq3.ranking-classification.rds")
+saveRDS(rq3.ranking, file="results/ranking-values-defect-classification.rds")
 
 rq2.sanitycheck <- data.frame(rq2.sanitycheck)
 rq2.sanitycheck$value <- as.numeric(as.character(rq2.sanitycheck$value))
-saveRDS(rq2.sanitycheck, file="Analysis/rq2.sanitycheck-classification.rds")
+saveRDS(rq2.sanitycheck, file="results/performance-values-defect-classification.rds")
 
 ########### Compute Performance Difference ###########
 
@@ -89,21 +87,21 @@ for(project in projects){
 
 rq2 <- data.frame(rq2)
 rq2$value <- as.numeric(as.character(rq2$value))
-saveRDS(rq2, file="Analysis/rq2-classification-perfdiff.rds")
+saveRDS(rq2, file="results/performance-diff-defect-classification.rds")
 
 rq3 <- data.frame(rq3)
 rq3$value <- as.numeric(as.character(rq3$value))
-saveRDS(rq3, file="Analysis/rq3-classification-perfdiff.rds")
+saveRDS(rq3, file="results/ranking-diff-defect-classification.rds")
 
 
 ########### Analyze Results ###########
 
 # rq2.sanitycheck
-rq2.sanitycheck <- readRDS(file="Analysis/rq2.sanitycheck-classification.rds")
+rq2.sanitycheck <- readRDS(file="results/performance-values-defect-classification.rds")
 levels(rq2.sanitycheck$model) <- c("GLM_real","GLM_heu","RFC_real","RFC_heu")
 rq2.sanitycheck$measure <- factor(rq2.sanitycheck$measure, levels=c("AUC","Precision","Recall","Fmeasure"))
 ggplot(rq2.sanitycheck[rq2.sanitycheck$measure %in% c("AUC","Precision","Recall","Fmeasure"),], aes(x=measure, y=value, fill=model)) + geom_boxplot() + ylab("") + xlab("") + theme_bw() + theme(legend.position="top", legend.title=element_blank()) + scale_y_continuous(limit=c(0,1), breaks=0:5*0.2) + scale_fill_brewer()
-ggsave(file="paper/figures/figure6-b.pdf", width=4, height=3.6)
+ggsave(file="figures/figure6-b.pdf", width=4, height=3.6)
 
 
 for(classifier in c("GLM","RFC")){
@@ -118,7 +116,7 @@ for(classifier in c("GLM","RFC")){
   }
 }
 
-rq3.ranking <- readRDS("Analysis/rq3.ranking-classification.rds")
+rq3.ranking <- readRDS("results/ranking-values-defect-classification.rds")
 rq3.ranking$p20 <- as.numeric(as.character(rq3.ranking$p20))
 rq3.ranking$r20 <- as.numeric(as.character(rq3.ranking$r20))
 
@@ -135,10 +133,10 @@ for(classifier in c("glm","rfc")){
 
 
 # rq2
-rq2 <- readRDS(file="Analysis/rq2-classification-perfdiff.rds")
+rq2 <- readRDS(file="results/performance-diff-defect-classification.rds")
 rq2$measure <- factor(rq2$measure, levels=c("AUC","Precision","Recall","Fmeasure"))
 ggplot(rq2[rq2$measure %in% c("AUC","Precision","Recall","Fmeasure"),], aes(x=measure, y=value, fill=classifier)) + geom_boxplot() + coord_cartesian(ylim=c(-0.4,0.4)) + scale_y_continuous(breaks=-4:4*0.1) + ylab("") + xlab("") + theme_bw() + theme(legend.position="top", legend.title=element_blank()) + scale_fill_brewer() + geom_hline(yintercept=0, color="red", linetype="dashed")
-ggsave(file="paper/figures/figure7-b.pdf", width=5, height=5)
+ggsave(file="figures/figure7-b.pdf", width=5, height=5)
 
 summary(rq2[rq2$classifier=="GLM" & rq2$measure == "AUC","value"])
 summary(rq2[rq2$classifier=="RF" & rq2$measure == "AUC","value"])
@@ -148,10 +146,10 @@ summary(rq2[rq2$classifier=="RF" & rq2$measure == "Fmeasure","value"])
 
 
 # rq3
-rq3 <- readRDS(file="Analysis/rq3-classification-perfdiff.rds")
+rq3 <- readRDS(file="results/ranking-diff-defect-classification.rds")
 levels(rq3$measure) <- c("P@20%LOC","R@20%LOC")
 ggplot(rq3[rq3$measure %in% c("P@20%LOC","R@20%LOC"),], aes(x=measure, y=value, fill=classifier)) + geom_boxplot() + coord_cartesian(ylim=c(-0.3,0.4))  + ylab("") + xlab("") + theme_bw() + theme(legend.position="top", legend.title=element_blank()) + scale_fill_brewer() + geom_hline(yintercept=0, color="red", linetype="dashed")
-ggsave(file="paper/figures/figure9-b.pdf", width=3.2, height=3.2)
+ggsave(file="figures/figure9-b.pdf", width=3.2, height=3.2)
 
 summary(rq3[rq3$classifier=="GLM" & rq3$measure == "P@20%LOC","value"])
 summary(rq3[rq3$classifier=="RF" & rq3$measure == "P@20%LOC","value"])

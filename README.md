@@ -45,6 +45,14 @@ devtools::install_github("software-analytics/Rnalytica")
 Rscript RQ1-analysis.R
 ```
 
+***Output:***
+
+- `figures/figure4-a.pdf`
+- `figures/figure4-b.pdf`
+- `figures/figure5.pdf`
+- `figures/figure8.pdf`
+
+
 ### Step 3 - Build defect models for RQ2 and RQ3. (This step takes few hours for 12 CPU cores. 
 The results are produced and available at ...)
 
@@ -54,7 +62,7 @@ Rscript RQ2-3-model-building.R
 
 ***Output:***
 
-- `results/` all results of defect models
+- `models/` all model results of defect models
 
 ### Step 3 - Run RQ2 and RQ3 analysis for defect count models
 
@@ -64,7 +72,9 @@ Rscript RQ2-3-analyze-defect-count-models.R
 
 ***Output:***
 
-- `figures/` all figures that are used in the paper
+- `figures/figure6-a.pdf`
+- `figures/figure7-a.pdf`
+- `figures/figure9-a.pdf`
 
 ### Step 3 - Run RQ2 and RQ3 analysis for defect classification models
 
@@ -74,4 +84,6 @@ Rscript RQ2-3-analyze-defect-classification-models.R
 
 ***Output:***
 
-- `figures/` all figures that are used in the paper
+- `figures/figure6-b.pdf`
+- `figures/figure7-b.pdf`
+- `figures/figure9-b.pdf`

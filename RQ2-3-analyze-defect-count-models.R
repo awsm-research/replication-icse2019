@@ -1,4 +1,3 @@
-setwd("~/mcs18-defect-linkage/")
 library(ggplot2)
 library(Rnalytica)
 library(effsize)
@@ -14,7 +13,7 @@ projects <- listDataset[listDataset$corpus == "jira",]$system
 
 for(project in projects){
   print(project)
-  data <- data.frame(readRDS(file=paste0("results/",project,".Rds")))
+  data <- data.frame(readRDS(file=paste0("models/",project,".Rds")))
   
   col <- c("boot_id","glm.noisy","glm.clean","lm.noisy","lm.clean",
            "rfc.noisy","rfc.clean","rfr.noisy","rfr.clean","oracle.number","LOC")
@@ -71,7 +70,7 @@ for(project in projects){
 
 rq.ranking <- data.frame(rq.ranking)
 rq.ranking[,3:4] <- lapply(rq.ranking[,3:4],function(x) as.numeric(as.character(x)))
-saveRDS(rq.ranking, file="Analysis/rq.ranking-regression.rds")
+saveRDS(rq.ranking, file="results/ranking-values-defect-count.rds")
 
 # rq3 - performance difference
 rq3 <- NULL
@@ -88,15 +87,15 @@ for(project in projects){
 
 rq2.sanitycheck <- data.frame(rq2.sanitycheck)
 rq2.sanitycheck$value <- as.numeric(as.character(rq2.sanitycheck$value))
-saveRDS(rq2.sanitycheck, file="Analysis/rq2.sanitycheck-regression.rds")
+saveRDS(rq2.sanitycheck, file="results/performance-values-defect-count.rds")
 
 rq2 <- data.frame(rq2)
 rq2$value <- as.numeric(as.character(rq2$value))
-saveRDS(rq2, file="Analysis/rq2-regression.rds")
+saveRDS(rq2, file="results/performance-diff-defect-count.rds")
 
 rq3 <- data.frame(rq3)
 rq3$value <- as.numeric(as.character(rq3$value))
-saveRDS(rq3, file="Analysis/rq3-regression.rds")
+saveRDS(rq3, file="results/ranking-diff-defect-count.rds")
 
 
 ################################################################################
@@ -135,7 +134,7 @@ grid_arrange_shared_legend <- function(..., ncol = length(list(...)), nrow = 1, 
 
 #######################################################
 # rq2.sanitycheck
-rq2.sanitycheck <- readRDS(file="Analysis/rq2.sanitycheck-regression.rds")
+rq2.sanitycheck <- readRDS(file="results/performance-values-defect-count.rds")
 
 levels(rq2.sanitycheck$model) <- c("LM_real","LM_heu","RFR_real","RFR_heu")
 levels(rq2.sanitycheck$measure) <- c("MAE","MdAE","SA","Spearman")
@@ -143,7 +142,7 @@ levels(rq2.sanitycheck$measure) <- c("MAE","MdAE","SA","Spearman")
 g1 <- ggplot(rq2.sanitycheck[rq2.sanitycheck$measure %in% c("MAE"),], aes(x=measure, y=value, fill=model)) + geom_boxplot() + ylab("") + xlab("") + theme_bw() + theme(legend.position="top", legend.title=element_blank()) + scale_y_continuous(limit=c(0,1), breaks=0:5*0.2) + scale_fill_brewer()
 g3 <- ggplot(rq2.sanitycheck[rq2.sanitycheck$measure %in% c("SA"),], aes(x=measure, y=value, fill=model)) + geom_boxplot() + ylab("") + xlab("") + theme_bw() + theme(legend.position="top", legend.title=element_blank()) + scale_y_continuous(limit=c(75,100), breaks=c(75,80,85,90,95,100)) + theme(legend.position = "none") + scale_fill_brewer()
 
-pdf(file="paper/figures/figure6-a.pdf", width=3, height=4)
+pdf(file="figures/figure6-a.pdf", width=3, height=4)
 grid_arrange_shared_legend(g1, g3, ncol = 2, nrow = 1, position="top")
 dev.off()
 
@@ -160,7 +159,7 @@ for(classifier in c("LM","RFR")){
 }
 
 
-rq.ranking <- readRDS("Analysis/rq.ranking-regression.rds")
+rq.ranking <- readRDS("results/ranking-values-defect-count.rds")
 for(classifier in c("lm","rfr")){
   for(measure in c("p20","r20")){
     heu <- paste0(classifier,".noisy")
@@ -174,12 +173,12 @@ for(classifier in c("lm","rfr")){
 
 #######################################################
 # rq2
-rq2 <- readRDS(file="Analysis/rq2-regression.rds")
+rq2 <- readRDS(file="results/performance-diff-defect-count.rds")
 levels(rq2$measure) <- c("MAE","MdAE","SA","Spearman")
 levels(rq2$classifier) <- c("LM","RF")
 g1 <- ggplot(rq2[rq2$measure %in% c("MAE"),], aes(x=measure, y=value, fill=classifier)) + geom_boxplot() + coord_cartesian(ylim=c(-.4,0.4))  + scale_fill_brewer() + theme_bw() + ylab("") + xlab("")  + geom_hline(yintercept=0, color="red", linetype="dashed") + theme(legend.position="top", legend.title=element_blank())
 g2 <- ggplot(rq2[rq2$measure %in% c("SA"),], aes(x=measure, y=value, fill=classifier)) + geom_boxplot() + coord_cartesian(ylim=c(-10,10))  + scale_fill_brewer() + theme_bw() + ylab("") + xlab("") + geom_hline(yintercept=0, color="red", linetype="dashed")  + theme(legend.position="top", legend.title=element_blank())
-pdf(file="paper/figures/figure7-a.pdf", width=3, height=4.5)
+pdf(file="figures/figure7-a.pdf", width=3, height=4.5)
 grid_arrange_shared_legend(g1, g2, ncol = 2, nrow = 1, position="top")
 dev.off()
 
@@ -191,12 +190,12 @@ summary(rq2[rq2$classifier=="RF" & rq2$measure == "SA","value"])
 
 #######################################################
 # rq3
-rq3 <- readRDS(file="Analysis/rq3-regression.rds")
+rq3 <- readRDS(file="results/ranking-diff-defect-count.rds")
 rq3 <- rbind(rq3, rq2[rq2$measure=="Spearman",])
 rq3$measure <- factor(rq3$measure)
 levels(rq3$measure) <- c("P@20%LOC","R@20%LOC","Spearman")
 ggplot(rq3, aes(x=measure, y=value, fill=classifier)) + geom_boxplot() + coord_cartesian(ylim=c(-0.3,0.4))  + ylab("") + xlab("") + theme_bw() + theme(legend.position="top", legend.title=element_blank()) + scale_fill_brewer() + geom_hline(yintercept=0, color="red", linetype="dashed")
-ggsave(file="paper/figures/figure9-a.pdf", width=3.2, height=3.2)
+ggsave(file="figures/figure9-a.pdf", width=3.2, height=3.2)
 
 summary(rq3[rq3$classifier=="LM" & rq3$measure == "P@20%LOC","value"])
 summary(rq3[rq3$classifier=="RF" & rq3$measure == "P@20%LOC","value"])

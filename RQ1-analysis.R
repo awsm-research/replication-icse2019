@@ -1,6 +1,6 @@
 library(reshape)
 library(ggplot2)
-# library(Rnalytica)
+library(Rnalytica)
 
 df <- NULL
 diff <- NULL
@@ -60,17 +60,17 @@ diff$diff <- factor(diff$diff, c(1:9,"10+"))
 chart <-melt(df[,c("project","LessDefectCount","SameDefectCount","HigherDefectCount")])
 chart$project <- factor(chart$project, levels=as.character(df[order(df$HigherDefectCount),]$project))
 ggplot() + geom_bar(data = chart, aes(x=project, y=value*100, fill=variable), stat="identity") + theme_bw() + ylab("Percentage") + xlab("") + theme( legend.position="top", legend.title=element_blank()) + scale_fill_brewer() + theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
-ggsave("paper/figures/figure5.pdf", width=6, height=5)
+ggsave("figures/figure5.pdf", width=6, height=5)
 
 
 ggplot(melt(df[,c("Defective","Clean")]), aes(x=variable,y=value*100)) + geom_boxplot() + xlab("") + ylab("Percentage") + theme_bw() + scale_y_continuous(limits = c(0,100), breaks=0:5*20) 
-ggsave("paper/figures/figure4-a.pdf", width=3, height=3)
+ggsave("figures/figure4-a.pdf", width=3, height=3)
 
 ggplot(melt(df[,c("MislabelledDefective","MislabelledClean")]), aes(x=variable,y=value*100)) + geom_boxplot()  + xlab("") + ylab("Percentage") + theme_bw() + scale_y_continuous(limits = c(0,100), breaks=0:5*20)
-ggsave("paper/figures/figure4-b.pdf", width=3, height=3)
+ggsave("figures/figure4-b.pdf", width=3, height=3)
 
 ggplot(diff, aes(x=diff, y=value*100)) + geom_boxplot() + xlab("Magnitude of the difference") + ylab("Percentage of defective modules") + theme_bw() + scale_y_continuous(limits = c(0,80), breaks=0:5*20)
-ggsave("paper/figures/figure8.pdf", width=7, height=2.7)
+ggsave("figures/figure8.pdf", width=7, height=2.7)
 
 
 ###### Generate Report ######

@@ -68,6 +68,6 @@ o <- foreach(project=listDataset[listDataset$corpus == "jira",]$system, .combine
                    filename = as.character(test_data$File)
                  ))
   }
-  saveRDS(df, file=paste0("results/",project,".Rds"))
+  saveRDS(df, file=paste0("models/",project,".Rds"))
   return(project)
 }
