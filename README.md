@@ -11,7 +11,7 @@ With the rise of the Mining Software Repositories (MSR) field, defect datasets e
 ## Replication guide
 
 
-### Step 0 - prerequisites
+### Prerequisites
 
 - Unix-compatible OS (Linux or OS X)
 - R 3.4 or higher (3.5.1 was used)
@@ -20,23 +20,11 @@ With the rise of the Mining Software Repositories (MSR) field, defect datasets e
 - Few hours of computational time for 12 cores
 - Run the following command to install R (for Ubuntu).
 
-```
-sudo apt-get install r-base r-base-dev libcurl4-gnutls-dev libcurl4-openssl-dev libssl-dev
-```
-
 ### Step 1 - install R libraries.
 
 ```R
-install.packages("ggplot2",repos = "http://cran.us.r-project.org")
-install.packages("plyr",repos = "http://cran.us.r-project.org")
-install.packages("effsize",repos = "http://cran.us.r-project.org")
-install.packages("randomForest",repos = "http://cran.us.r-project.org")
-install.packages("doParallel",repos = "http://cran.us.r-project.org")
-install.packages("gridExtra",repos = "http://cran.us.r-project.org")
-install.packages("grid",repos = "http://cran.us.r-project.org")
-install.packages("Hmisc",repos = "http://cran.us.r-project.org")
-install.packages("devtools",repos = "http://cran.us.r-project.org")
-devtools::install_github("software-analytics/Rnalytica")
+sudo apt-get install r-base r-base-dev libcurl4-gnutls-dev libcurl4-openssl-dev libssl-dev
+Rscript install_libraries.R
 ```
 
 ### Step 2 - Produce results for RQ1.
