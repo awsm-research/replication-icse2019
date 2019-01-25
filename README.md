@@ -52,7 +52,7 @@ Rscript RQ2-3-model-building.R
 
 - `models/` all model results of defect models
 
-### Step 3 - Run RQ2 and RQ3 analysis for defect count models
+### Step 4 - Run RQ2 and RQ3 analysis for defect count models
 
 ```
 Rscript RQ2-3-analyze-defect-count-models.R
@@ -64,7 +64,7 @@ Rscript RQ2-3-analyze-defect-count-models.R
 - `figures/figure7-a.pdf`
 - `figures/figure9-a.pdf`
 
-### Step 3 - Run RQ2 and RQ3 analysis for defect classification models
+### Step 5 - Run RQ2 and RQ3 analysis for defect classification models
 
 ```
 Rscript RQ2-3-analyze-defect-classification-models.R
