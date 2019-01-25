@@ -1,4 +1,4 @@
-# Replication Package: Mining Software Defects: Should We Consider Affected Releases?
+# Replication Package: Mining Software Defects: Should We Consider Affected Releases? [![DOI](https://zenodo.org/badge/163044534.svg)](https://zenodo.org/badge/latestdoi/163044534)
 
 **Authors:** Suraj Yatish (UofAdelaide), Jirayus Jiarpakdee (Monash), [Patanamon Thongtanunam (UniMelb)](http://patanamon.com), [Chakkrit Tantithamthavorn (Monash)](http://www.chakkrit.com)
 
