@@ -41,8 +41,7 @@ Rscript RQ1-analysis.R
 - `figures/figure8.pdf`
 
 
-### Step 3 - Build defect models for RQ2 and RQ3. (This step takes few hours for 12 CPU cores. 
-The results are produced and available at ...)
+### Step 3 - Build defect models for RQ2 and RQ3. (This step takes few hours for 12 CPU cores.)
 
 ```
 Rscript RQ2-3-model-building.R
