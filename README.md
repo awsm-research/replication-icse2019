@@ -27,10 +27,12 @@ With the rise of the Mining Software Repositories (MSR) field, defect datasets e
 - Few hours of computational time for 12 cores
 - Run the following command to install R (for Ubuntu).
 
-### Step 1 - install R libraries.
+### Step 1 - Install necessary softwares + check out the repository + install R libraries.
 
-```R
+```bash
 sudo apt-get install r-base r-base-dev libcurl4-gnutls-dev libcurl4-openssl-dev libssl-dev
+git clone https://github.com/awsm-research/replication-icse2019/
+cd replication-icse2019
 Rscript install_libraries.R
 ```
 
@@ -48,7 +50,9 @@ Rscript RQ1-analysis.R
 - `figures/figure8.pdf`
 
 
-### Step 3 - Build defect models for RQ2 and RQ3. (This step takes few hours for 12 CPU cores.)
+### Step 3 - Build defect models for RQ2 and RQ3. 
+
+**Please note that this step takes few hours for 12 CPU cores. Thus, all of the resulting models are available [here](https://github.com/awsm-research/replication-icse2019/tree/master/models).**
 
 ```
 Rscript RQ2-3-model-building.R
