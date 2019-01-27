@@ -1,0 +1,1 @@
+FROM awsmdocker/rnalytica:latest
