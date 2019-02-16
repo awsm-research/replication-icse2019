@@ -1,4 +1,4 @@
-# Replication Package: Mining Software Defects: Should We Consider Affected Releases? [![DOI](https://zenodo.org/badge/163044534.svg)](https://zenodo.org/badge/latestdoi/163044534)
+# Replication Package: Mining Software Defects: Should We Consider Affected Releases? [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2566774.svg)](https://doi.org/10.5281/zenodo.2549359)
 
 **Authors:** Suraj Yatish (UofAdelaide), Jirayus Jiarpakdee (Monash), [Patanamon Thongtanunam (UniMelb)](http://patanamon.com), [Chakkrit Tantithamthavorn (Monash)](http://www.chakkrit.com)
 
@@ -7,7 +7,7 @@
 ### Artifact Abstract
 
 This artifact includes a collection of new benchmark defect datasets and R scripts for replicating our paper.
-We are applying for REPLICATED badge with the following reasons: (1) our replication package is available at [GitHub (https://github.com/awsm-research/replication-icse2019)](https://github.com/awsm-research/replication-icse2019) and [Zenodo (https://zenodo.org/record/2549360#.XExDw88zaL8)](https://zenodo.org/badge/latestdoi/163044534); (2) our defect datasets are available at [an Rnalytica R package](https://github.com/awsm-research/Rnalytica); (3) our replication package and defect datasets are reusable when ones wish to repeat the experiemnt with datasets from other domains and ecosystems; and (4) we believe that the main results of the paper are repeatable and replicable when using our provided defect datasets and R scripts. 
+We are applying for REPLICATED badge with the following reasons: (1) our replication package is available at [GitHub (https://github.com/awsm-research/replication-icse2019)](https://github.com/awsm-research/replication-icse2019) and [Zenodo (https://zenodo.org/record/2549360#.XExDw88zaL8)](https://doi.org/10.5281/zenodo.2549359); (2) our defect datasets are available at [an Rnalytica R package](https://github.com/awsm-research/Rnalytica); (3) our replication package and defect datasets are reusable when ones wish to repeat the experiemnt with datasets from other domains and ecosystems; and (4) we believe that the main results of the paper are repeatable and replicable when using our provided defect datasets and R scripts. 
 R programming knowledge is required to replicate the main results of our paper.
 
 
